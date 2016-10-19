@@ -8,10 +8,11 @@ app.listen(3000, function() {
 	console.log('listening on 3000');
 });
 
-// app.get(pathname, callback) 
+//CRUD-READ: app.get(pathname, callback)
 //when user wants to get this pathname
 //__dirname is the path to current working directory
 //sendFile: Express serves an index.html file found in root folder
 app.get('/', (req, res) => {
 	res.sendFile(__dirname + '/index.html');
 });
+
