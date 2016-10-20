@@ -1,8 +1,8 @@
 "use strict";
 
-//Body parser is a middleware, which is basically a plugin that change
-//the request or response object before they get handled by the app
-//it needs to be placed before CRUD handlers
+//Body parser is a middleware, which is basically a plugin that changes
+//the request or response object before they get handled by the app.
+//It needs to be placed before CRUD handlers.
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -37,7 +37,6 @@ app.get('/', (req, res) => {
 		if (err) {
 			return console.log(err);
 		}
-		console.log(results);
 		//renders the index.ejs file. first parameter is the file we are rendering
 		//the second is an object that passes data to the view
 		res.render('index.ejs', {quotes: results});
@@ -49,6 +48,7 @@ app.get('/', (req, res) => {
 //Form: action attribute tells browser where to navigate in our
 //Express app. Method tells browser what request to send.
 
+//bodyparser is a middleware, think of a black box
 //urlencoded method tells body-parser to extract data from the form
 //and add that data to request.body property
 app.use(bodyParser.urlencoded({extended: true}));
