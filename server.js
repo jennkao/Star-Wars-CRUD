@@ -1,12 +1,12 @@
 "use strict";
 
 //Express is a routing and middleware web framework--the app is essentially a 
-//series of middleware function calls. Middleware functions hve access to request,
-//response
+//series of middleware function calls. Middleware functions have access to 
+//request and response objects and can modify them.
 
 //Body parser is a middleware, which is basically a plugin that changes
 //the request or response object before they get handled by the app.
-//It needs to be placed before CRUD handlers.
+//It needs to be placed before the CRUD handlers.
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -79,7 +79,7 @@ app.set('view engine', 'ejs');
 //the file we're rendering, and this file must be placed in a views folder.
 //*Locals* is an object that passes data into the view
 
-//CRUD-UPDATE: 
+//CRUD-UPDATE: app.put(pathname, callback)-------------------
 //Express.static is a middleware. We create a file called 'public' that will 
 //contain our static resources. The following line tells Express to match any 
 //routes for files fond in this folder and deliver files directly to the browser.
@@ -113,8 +113,22 @@ app.put('/quotes', (req, res) => {
 				return res.send(err);
 			}
 			res.send(result);
-		}
-	)
+		});
 });
+//the callback doesn't do anything in our case. The Fetch object receives the
+//response and we can do stuff with it with .then(), but in our case we just
+//log it to the console before the page refreshes. 
 
-
+//CRUD-DELETE: app.delete(pathname, callback)-------------------
+//findOneAndDelete is similar to findOneAndUpdate --> except no parameter for
+//what you want to put in as the update. We also skipped options here.
+app.delete('/quotes', (req, res) => {
+	db.collection('quotes').findOneAndDelete(
+		{name: req.body.name},
+		(err, result) => {
+			if (err) {
+				return res.send(500, err);
+			}
+			res.send('A Darth Vader quote got deleted');
+		});
+});
